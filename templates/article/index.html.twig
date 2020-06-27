@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste d'articles{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mt-5 mb-5">
+                <table class="table-responsive text-center table  mb-5 display" id="table_articles">
+                    <div class="col-xl-4 offset-xl-4 col-lg-7 offset-lg-3 col-md-8 offset-md-2 col-sm-12 col-xs-12">
+                        <thead class="table-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Produit</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Prix</th>
+                            <th scope="col">Quantité</th>
+                            <th scope="col">Date de création</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for data in dataTable  %}
+                            <tr>
+                                <td scope="row"></td>
+                                <td scope="row">{{ data.name }}</td>
+                                <td scope="row">{{ data.price }}</td>
+                                <td scope="row">{{ data.qte }}</td>
+                                <td scope="row">{{ data.description }}</td>
+                                <td scope="row">{{ data.createdAt |date('d/m/Y ') }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </div>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
