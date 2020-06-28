@@ -15,7 +15,6 @@ class ArticlesFormType extends AbstractType
             ->add('name')
             ->add('price')
             ->add('qte')
-            ->add('createdAt')
             ->add('description')
         ;
     }

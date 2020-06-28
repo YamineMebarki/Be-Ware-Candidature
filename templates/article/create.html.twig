@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if modifyMode %}
+        Modify article
+    {% else %}
+        Create article
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="text-center">
+        {% if modifyMode %}
+            <h1>Modifier l'article</h1>
+        {% else %}
+            <h1>Créer un article</h1>
+        {% endif %}
+        {{ form_start(articlesForm) }}
+        {{ form_row(articlesForm.name, {'label': 'Nom de l\'article', 'attr': {'placeholder': 'Renseigner un nom d\' article', 'class':'mb-3 form-control'}}) }}
+        {{ form_row(articlesForm.description, {'label': 'Description', 'attr': {'placeholder': 'Renseigner une déscription de l\'article', 'class':'mb-3 form-control'}}) }}
+        {{ form_row(articlesForm.price, {'label': 'Prix unitaire', 'attr': {'placeholder': 'Renseigner un prix unitaire', 'class':'mb-3 form-control'}}) }}
+        {{ form_row(articlesForm.qte, {'label': 'Quantitée', 'attr': {'placeholder': 'Renseigner la quantitée en stock', 'class':'mb-3 form-control'}}) }}
+        <button type="submit" class="btn btn-lg btn-success mt-5 mb-5">
+            {% if modifyMode %}
+                Modifier
+            {% else %}
+                Créer
+            {% endif %}
+        </button>
+        {{ form_end(articlesForm) }}
+    </div>
+{% endblock %}

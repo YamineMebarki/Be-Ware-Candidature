@@ -1,0 +1,77 @@
+body.cookiewarning
+{
+    padding-bottom: 15em;
+}
+body div.cookiewarning
+{
+    display: none;
+}
+body.cookiewarning div.cookiewarning
+{
+    padding: 1em;
+    display: block;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+    opacity:0.7;
+    background-color: Black;
+    color: white;
+}
+body .removecookie
+{
+    display: inline-block;
+}
+body.cookiewarning .removecookie
+{
+    display: none;
+}
+.logo{
+    font-size: 20vw;
+}
+.scrolled
+{
+    background: rgb(68, 68, 68); /* IE */
+    background: rgba(0, 0, 0, 0.78); /* NON-IE */
+}
+
+.scroll-top-wrapper
+{
+    position: fixed;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    text-align: center;
+    z-index: 99999999;
+    background-color: #777777;
+    color: #eeeeee;
+    width: 80px;
+    height: 48px;
+    line-height: 48px;
+    right: 30px;
+    bottom: 30px;
+    padding-top: -3px;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+.scroll-top-wrapper:hover
+{
+    background-color: #888888;
+}
+.scroll-top-wrapper.show
+{
+    visibility:visible;
+    cursor:pointer;
+    opacity: 1.0;
+}
+.scroll-top-wrapper i.fa
+{
+    line-height: inherit;
+}

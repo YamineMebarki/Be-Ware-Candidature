@@ -10,23 +10,32 @@
                     <div class="col-xl-4 offset-xl-4 col-lg-7 offset-lg-3 col-md-8 offset-md-2 col-sm-12 col-xs-12">
                         <thead class="table-dark">
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col"># Id</th>
                             <th scope="col">Produit</th>
-                            <th scope="col">Description</th>
                             <th scope="col">Prix</th>
                             <th scope="col">Quantité</th>
+                            <th scope="col">Description</th>
                             <th scope="col">Date de création</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for data in dataTable  %}
                             <tr>
-                                <td scope="row"></td>
-                                <td scope="row">{{ data.name }}</td>
-                                <td scope="row">{{ data.price }}</td>
-                                <td scope="row">{{ data.qte }}</td>
-                                <td scope="row">{{ data.description }}</td>
-                                <td scope="row">{{ data.createdAt |date('d/m/Y ') }}</td>
+                                {% if data.qte == 0 %}
+                                    <td scope="row" data-toggle="tooltip" data-placement="top" title="cliquer pour modifier l'article"><a href="{{ path('app_modify', { "id": data.id } ) }}">{{ data.id}}</a></td>
+                                    <td scope="row"></td>
+                                    <td scope="row"></td>
+                                    <td scope="row"><a href="{{ path('app_modify', { "id": data.id } ) }}">Stock vide cliquer pour modifier </a></td>
+                                    <td scope="row"></td>
+                                    <td scope="row"></td>
+                                {% else %}
+                                    <td scope="row" data-toggle="tooltip" data-placement="top" title="clicker pour modifier l'article"><a href="{{ path('app_modify', { "id": data.id } ) }}">{{ data.id}}</a></td>
+                                    <td scope="row">{{ data.name }}</td>
+                                    <td scope="row">{{ data.price }} €</td>
+                                    <td scope="row">{{ data.qte }}</td>
+                                    <td scope="row">{{ data.description }}</td>
+                                    <td scope="row">{{ data.createdAt |date('d/m/Y H:i:s') }}</td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                         </tbody>
