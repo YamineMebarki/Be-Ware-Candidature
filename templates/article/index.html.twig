@@ -10,7 +10,8 @@
                     <div class="col-xl-4 offset-xl-4 col-lg-7 offset-lg-3 col-md-8 offset-md-2 col-sm-12 col-xs-12">
                         <thead class="table-dark">
                         <tr>
-                            <th scope="col"># Id</th>
+                            <th scope="col">#</th>
+                            <th scope="col">Id</th>
                             <th scope="col">Produit</th>
                             <th scope="col">Prix</th>
                             <th scope="col">Quantité</th>
@@ -22,14 +23,30 @@
                         {% for data in dataTable  %}
                             <tr>
                                 {% if data.qte == 0 %}
-                                    <td scope="row" data-toggle="tooltip" data-placement="top" title="cliquer pour modifier l'article"><a href="{{ path('app_modify', { "id": data.id } ) }}">{{ data.id}}</a></td>
+                                   <!-- Effacer <td></td> et laisser cette partie vide afin de faire disparaitre la zone d'affichage-->
+                                    <td scope="row" id="tooltip" data-toggle="tooltip" data-placement="top" title="cliquer">
+                                        <a href="{{ path('app_modify', { "id": data.id } ) }}">
+                                            <button class="btn btn-sm btn-warning">
+                                                Modifier
+                                            </button>
+                                        </a>
+                                    </td>
                                     <td scope="row"></td>
                                     <td scope="row"></td>
-                                    <td scope="row"><a href="{{ path('app_modify', { "id": data.id } ) }}">Stock vide cliquer pour modifier </a></td>
+                                    <td scope="row"></td>
+                                    <td scope="row"><a href="{{ path('app_modify', { "id": data.id } ) }}"><span class="text-danger">Rupture de Stock</span></a></td>
                                     <td scope="row"></td>
                                     <td scope="row"></td>
                                 {% else %}
-                                    <td scope="row" data-toggle="tooltip" data-placement="top" title="clicker pour modifier l'article"><a href="{{ path('app_modify', { "id": data.id } ) }}">{{ data.id}}</a></td>
+                                    <td scope="row" id="tooltip" data-toggle="tooltip" data-placement="top" title="cliquer">
+                                        <form action="" method="get">
+                                        <input type="hidden" value="{{ data.id }}" id="data_id" name="data_id" />
+                                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#popup" id="show">
+                                            Voir
+                                        </button>
+                                        </form>
+                                    </td>
+                                    <td scope="row">{{ data.id}}</td>
                                     <td scope="row">{{ data.name }}</td>
                                     <td scope="row">{{ data.price }} €</td>
                                     <td scope="row">{{ data.qte }}</td>
@@ -44,4 +61,49 @@
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div id="popup" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            {% for data in dataTable %}
+                {% if data.id == data.id %}
+                    <!-- Modal content-->
+                    <div class="modal-content" id="show_popup">
+                        <div class="modal-header">
+                            <h4 class="modal-title">{{ data.name }}</h4>
+                            <input type="hidden" id="id_popup" value="{{ data.id }}">
+                            <button type="button" class="close text-danger" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <p>Déscription :</p>
+                                <small><b>{{ data.description }}</b></small>
+                            </div>
+                            <hr/>
+                            <p>Quantité = <b>{{ data.qte }}</b></p>
+                            <p>Prix = <b>{{ data.price }} €</b></p>
+                            <p>Créer le <b>{{ data.createdAt | date('d/m/Y') }}</b> à <a>{{ data.createdAt | date('H:i:s') }}</a></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                            <a href="{{ path('app_modify', { "id": data.id } ) }}"><button class="btn btn-warning">Modifier</button></a>
+                        </div>
+                    </div>
+                {% else %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+        $('#show').click(function(){
+            var popup = $('#id_popup').val();
+            var id = $('#data_id').val();
+            if(popup === id) {
+            $('#show_popup').hide();
+        }else{
+            $('#show_popup').show();
+        }
+        });
+        });
+    </script>
 {% endblock %}

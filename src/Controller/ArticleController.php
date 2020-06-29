@@ -19,7 +19,7 @@ class ArticleController extends AbstractController
      * @Route("/home", name="home")
      * @Route("/")
      */
-    public function index(ArticlesRepository $repo)
+    public function index(ArticlesRepository $repo, Request $request)
     {
         $articleList = $repo->findAll();
         return $this->render('article/index.html.twig',[
