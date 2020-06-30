@@ -37,7 +37,9 @@ body.cookiewarning .removecookie
 .pad{
     padding: 5%;
 }
-
+.round{
+    border-radius: 30px;
+}
 
 .logo{
     font-size: 20vw;

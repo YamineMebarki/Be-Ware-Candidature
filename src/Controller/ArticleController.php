@@ -42,6 +42,7 @@ class ArticleController extends AbstractController
                 'data_price' => $data->getPrice(),
                 'data_qte' => $data->getQte(),
                 'data_description' => $data->getDescription(),
+                'data_createdAt' => $data->getCreatedAt()
             ]);
         }else{
             $data = null;
@@ -54,7 +55,8 @@ class ArticleController extends AbstractController
             'data_name' => null,
             'data_price' => null,
             'data_qte' => null,
-            'data_description' => null
+            'data_description' => null,
+            'data_createdAt' => null
         ]);
     }
 

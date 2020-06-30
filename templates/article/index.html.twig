@@ -5,17 +5,20 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-12 mt-5 mb-2 border bg-dark text-white">
+            <div class="col-12 mt-5 mb-2 border bg-dark text-white round">
                 {% if data_id != null %}
-                    <p class="h4 text-center mt-3"><b>Fiche technique</b></p>
-                    <p class="h4 mt-3">Nom produit : {{ data_name }}</p>
+                    <p class="h4 text-center mt-3"><b>Fiche produit</b></p>
+                    <p class="h4 mt-3">Nom : <b>{{ data_name }}</b></p>
+                    <hr/>
                     <p class="h4">Description :</p>
-                    <div class="border mt-3 mb-3 pad">
+                    <div class="border mt-3 mb-3 pad round">
                         <small><b>{{ data_description }}</b></small>
                     </div>
                     <p class="h4">Prix : <b>{{ data_price }}</b> €</p>
                     <hr/>
                     <p class="h4 mb-3">Quantitée(s) : <b>{{ data_qte }}</b> en stock</p>
+                    <hr/>
+                    <p class="h4 mb-3 text-center">Créer le <b>{{ data_createdAt | date('d/m/Y') }}</b> à <b>{{ data_createdAt | date('H:i:s') }}</b></p>
                     <hr/>
                     <a href="{{ path('app_modify', { "id": data_id } ) }}"><button class="btn btn-warning right mb-3">Modifier</button></a>
                 {% else %}
