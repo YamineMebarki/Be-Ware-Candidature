@@ -43,7 +43,7 @@
                             <tr>
                                 {% if data.qte == 0 %}
                                     <!-- Effacer <td></td> et laisser cette partie vide afin de faire disparaitre la zone d'affichage-->
-                                    <td scope="row" id="tooltip" data-toggle="tooltip" data-placement="top" title="cliquer">
+                                    <td scope="row" id="tooltip" data-toggle="tooltip" data-placement="top" title="cliquer pour modifier">
                                         <a href="{{ path('app_modify', { "id": data.id } ) }}">
                                             <button class="btn btn-sm btn-warning">
                                                 Modifier
@@ -57,14 +57,14 @@
                                     <td scope="row"></td>
                                     <td scope="row"></td>
                                 {% else %}
-                                    <td scope="row" id="tooltip" data-toggle="tooltip" data-placement="top" title="cliquer">
+                                    <td scope="row">
                                         <input type="hidden" value="{{ data.id }}" id="data_id" name="data_id" />
-                                        <a href="{{ path('app_home_id', {'id': data.id}) }}" class="btn btn-link id_show">
+                                        <a href="{{ path('app_home_id', {'id': data.id}) }}" class="btn btn-link id_show"  id="tooltip" data-toggle="tooltip" data-placement="top" title="cliquer pour consulter la fiche produit">
                                                 <span class="btn btn-info btn-sm" data-toggle="modal" data-target="#popup">
                                                     Voir
                                                 </span>
                                         </a>
-                                        <a href="{{ path('app_modify', { "id": data.id } ) }}"><button class="btn btn-warning btn-sm">Modifier</button></a>
+                                        <a href="{{ path('app_modify', { "id": data.id } ) }}"  id="tooltip" data-toggle="tooltip" data-placement="top" title="cliquer pour modifier"><button class="btn btn-warning btn-sm">Modifier</button></a>
                                     </td>
                                     <td scope="row">{{ data.id}}</td>
                                     <td scope="row">{{ data.name }}</td>
