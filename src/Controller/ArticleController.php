@@ -17,14 +17,66 @@ class ArticleController extends AbstractController
 {
     /**
      * @Route("/home", name="home")
+     *  @Route("/home/{id}", name="app_home_id")
      * @Route("/")
      */
-    public function index(ArticlesRepository $repo, Request $request)
+    public function index(ArticlesRepository $repo, Request $request, Articles $article = null)
     {
+        if ($article)
+        {
+            $data = $repo->findOneBy([
+                'id' => $article->getId()
+            ]);
+             $this->json([
+                'code' => 200,
+                'message' => 'data trouver',
+                'data' => $data
+            ], 200);
+            dump($data);
+            $articleList = $repo->findAll();
+            return $this->render('article/index.html.twig',[
+                'dataTable' => $articleList,
+                'data_article' => $data !== null,
+                'data_id' => $data->getId(),
+                'data_name' => $data->getName(),
+                'data_price' => $data->getPrice(),
+                'data_qte' => $data->getQte(),
+                'data_description' => $data->getDescription(),
+            ]);
+        }else{
+            $data = null;
+        }
         $articleList = $repo->findAll();
         return $this->render('article/index.html.twig',[
-            'dataTable' => $articleList
+            'dataTable' => $articleList,
+            'data_article' => $data !== null,
+            'data_id' => $data !== null,
+            'data_name' => null,
+            'data_price' => null,
+            'data_qte' => null,
+            'data_description' => null
         ]);
+    }
+
+    /**
+     * @Route("/home/{id}", name="app_id")
+     */
+    public function homeId(ArticlesRepository $repo, Request $request, Articles $article = null)
+    {
+        if ($article)
+        {
+            $data = $repo->findOneBy([
+                'id' => $article->getId()
+            ]);
+           return $this->json([
+                'code' => 200,
+                'message' => 'data trouver',
+                'data' => $data
+            ], 200);
+            dump($data);
+        }else{
+            $data = null;
+        }
     }
 
     /**
