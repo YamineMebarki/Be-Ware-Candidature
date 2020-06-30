@@ -17,7 +17,7 @@
                     <hr/>
                     <p class="h4 mb-3">Quantitée(s) : <b>{{ data_qte }}</b> en stock</p>
                     <hr/>
-                    <a href="{{ path('app_modify', { "id": data_id } ) }}"><button class="btn btn-warning btn-sm right mb-3">Modifier</button></a>
+                    <a href="{{ path('app_modify', { "id": data_id } ) }}"><button class="btn btn-warning right mb-3">Modifier</button></a>
                 {% else %}
                 {% endif %}
             </div>
@@ -67,7 +67,7 @@
                                     <td scope="row">{{ data.name }}</td>
                                     <td scope="row">{{ data.price }} €</td>
                                     <td scope="row">{{ data.qte }}</td>
-                                    <td scope="row"><small>{{ data.description }}</small></td>
+                                    <td scope="row" id="tooltip" data-toggle="tooltip" data-placement="top" title="{{ data.description }}"><small>{{ data.description | truncate(55) | raw }}</small></td>
                                     <td scope="row">{{ data.createdAt |date('d/m/Y H:i:s') }}</td>
                                 {% endif %}
                             </tr>

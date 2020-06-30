@@ -26,6 +26,19 @@ body.cookiewarning .removecookie
 {
     display: none;
 }
+
+.right
+{
+    float: right;
+}
+.text-white{
+    color: white;
+}
+.pad{
+    padding: 5%;
+}
+
+
 .logo{
     font-size: 20vw;
 }
