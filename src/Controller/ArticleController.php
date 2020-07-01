@@ -66,27 +66,6 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/home/{id}", name="app_id")
-     */
-    public function homeId(ArticlesRepository $repo, Request $request, Articles $article = null)
-    {
-        if ($article)
-        {
-            $data = $repo->findOneBy([
-                'id' => $article->getId()
-            ]);
-           return $this->json([
-                'code' => 200,
-                'message' => 'data trouver',
-                'data' => $data
-            ], 200);
-            dump($data);
-        }else{
-            $data = null;
-        }
-    }
-
-    /**
      * @Route("article/create", name="app_create")
      * @Route("article/{id}/modify", name="app_modify")
      */

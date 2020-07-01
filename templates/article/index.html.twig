@@ -20,6 +20,7 @@
                     <hr/>
                     <p class="h4 mb-3 text-center">Créer le <b>{{ data_createdAt | date('d/m/Y') }}</b> à <b>{{ data_createdAt | date('H:i:s') }}</b></p>
                     <hr/>
+                    <a href="{{ path('home' ) }}"><button class="btn btn-danger mb-3">Fermer</button></a>
                     <a href="{{ path('app_modify', { "id": data_id } ) }}"><button class="btn btn-warning right mb-3">Modifier</button></a>
                 {% else %}
                 {% endif %}
@@ -53,6 +54,9 @@
                                                 Modifier
                                             </button>
                                         </a>
+                                        <a href="{{ path('app_home_id', {'id': data.id}) }}" class="btn btn-link id_show"  id="tooltip" data-toggle="tooltip" data-placement="top" title="cliquer pour consulter la fiche produit">
+                                            <button class="btn btn-info btn-sm">Fiche produit</button>
+                                        </a>
                                     </td>
                                     <td scope="row"></td>
                                     <td scope="row"></td>
@@ -63,12 +67,9 @@
                                 {% else %}
                                     <td scope="row">
                                         <input type="hidden" value="{{ data.id }}" id="data_id" name="data_id" />
-                                                <span class="btn btn-info btn-sm" data-toggle="modal" data-target="#popup{{ data.id }}">
+                                        <span class="btn btn-info btn-sm" data-toggle="modal" data-target="#popup{{ data.id }}">
                                                     Voir
                                                 </span>
-                                        <a href="{{ path('app_home_id', {'id': data.id}) }}" class="btn btn-link id_show"  id="tooltip" data-toggle="tooltip" data-placement="top" title="cliquer pour consulter la fiche produit">
-                                            <button class="btn btn-warning btn-sm">Fiche produit</button>
-                                        </a>
                                     </td>
                                     <td scope="row">{{ data.id}}</td>
                                     <td scope="row">{{ data.name }}</td>
