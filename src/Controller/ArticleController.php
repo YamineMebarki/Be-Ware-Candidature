@@ -24,16 +24,17 @@ class ArticleController extends AbstractController
     {
         if ($article)
         {
+            $articles = Articles::class;
             $data = $repo->findOneBy([
                 'id' => $article->getId()
             ]);
-             $this->json([
+            $this->json([
                 'code' => 200,
                 'message' => 'data trouver',
                 'data' => $data
             ], 200);
-            dump($data);
             $articleList = $repo->findAll();
+            //  echo '<script> $(\'#popup\').modal(\'show\');</script>';
             return $this->render('article/index.html.twig',[
                 'dataTable' => $articleList,
                 'data_article' => $data !== null,
@@ -42,7 +43,9 @@ class ArticleController extends AbstractController
                 'data_price' => $data->getPrice(),
                 'data_qte' => $data->getQte(),
                 'data_description' => $data->getDescription(),
-                'data_createdAt' => $data->getCreatedAt()
+                'data_createdAt' => $data->getCreatedAt(),
+                'count' => $repo->count(['id' => $articleList]),
+                'count_qte' => $repo->count(['qte' => $articles != 0])
             ]);
         }else{
             $data = null;
@@ -56,7 +59,9 @@ class ArticleController extends AbstractController
             'data_price' => null,
             'data_qte' => null,
             'data_description' => null,
-            'data_createdAt' => null
+            'data_createdAt' => null,
+            'count' => $repo->count(['id' => $articleList]),
+            'count_qte' => $repo->count(['qte' => $article != 0])
         ]);
     }
 

@@ -25,6 +25,10 @@
                 {% endif %}
             </div>
             <div class="col-12 mt-5 mb-5">
+                <p class="h4 mt-3 mb-3 text-center">
+                    Actuellement vous avez <b>{{ count }}</b> produit(s)
+                </p>
+                <p class="h4 text-center"><b>{{ count_qte }}</b> produit(s) sont en ruptutre de stock</p>
                 <table class="table-responsive text-center table  mb-5 display" id="table_articles">
                     <div class="col-xl-4 offset-xl-4 col-lg-7 offset-lg-3 col-md-8 offset-md-2 col-sm-12 col-xs-12">
                         <thead class="table-dark">
@@ -59,12 +63,12 @@
                                 {% else %}
                                     <td scope="row">
                                         <input type="hidden" value="{{ data.id }}" id="data_id" name="data_id" />
-                                        <a href="{{ path('app_home_id', {'id': data.id}) }}" class="btn btn-link id_show"  id="tooltip" data-toggle="tooltip" data-placement="top" title="cliquer pour consulter la fiche produit">
-                                                <span class="btn btn-info btn-sm" data-toggle="modal" data-target="#popup">
+                                                <span class="btn btn-info btn-sm" data-toggle="modal" data-target="#popup{{ data.id }}">
                                                     Voir
                                                 </span>
+                                        <a href="{{ path('app_home_id', {'id': data.id}) }}" class="btn btn-link id_show"  id="tooltip" data-toggle="tooltip" data-placement="top" title="cliquer pour consulter la fiche produit">
+                                            <button class="btn btn-warning btn-sm">Fiche produit</button>
                                         </a>
-                                        <a href="{{ path('app_modify', { "id": data.id } ) }}"  id="tooltip" data-toggle="tooltip" data-placement="top" title="cliquer pour modifier"><button class="btn btn-warning btn-sm">Modifier</button></a>
                                     </td>
                                     <td scope="row">{{ data.id}}</td>
                                     <td scope="row">{{ data.name }}</td>
@@ -74,6 +78,32 @@
                                     <td scope="row">{{ data.createdAt |date('d/m/Y H:i:s') }}</td>
                                 {% endif %}
                             </tr>
+                            <!-- Modal -->
+                            <div id="popup{{ data.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content" id="show_popup">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">{{ data.name }}</h4>
+                                            <button type="button" class="close text-danger" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <p>Déscription :</p>
+                                                <small><b>{{ data.description }}</b></small>
+                                            </div>
+                                            <hr/>
+                                            <p>Quantité = <b>{{ data.qte }}</b></p>
+                                            <p>Prix = <b>{{ data.price }} €</b></p>
+                                            <p>Créer le <b>{{ data.createdAt | date('d/m/Y') }}</b> à <a>{{ data.createdAt | date('H:i:s') }}</a></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                                            <a href="{{ path('app_modify', { "id": data.id } ) }}"><button class="btn btn-warning">Modifier</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         {% endfor %}
                         </tbody>
                     </div>
@@ -81,37 +111,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div id="popup" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            {% if data_article != 'null' %}
-                {% for data_article in data_article %}
-                    <!-- Modal content-->
-                    <div class="modal-content" id="show_popup">
-                        <div class="modal-header">
-                            <h4 class="modal-title">{{ data_article.name }}</h4>
-                            <button type="button" class="close text-danger" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <p>Déscription :</p>
-                                <small><b>{{ data_article.description }}</b></small>
-                            </div>
-                            <hr/>
-                            <p>Quantité = <b>{{ data_article.qte }}</b></p>
-                            <p>Prix = <b>{{ data_article.price }} €</b></p>
-                            <p>Créer le <b>{{ data_article.createdAt | date('d/m/Y') }}</b> à <a>{{ data_article.createdAt | date('H:i:s') }}</a></p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-                            <a href="{{ path('app_modify', { "id": data_article.id } ) }}"><button class="btn btn-warning">Modifier</button></a>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% else %}
-            {% endif %}
-        </div>
-    </div>
+
 {% endblock %}
 
 {% block javascripts %}
@@ -121,9 +121,7 @@
             event.preventDefault();
             const url = this.href;
             axios.get(url).then(function (response) {
-                $(window).load(function() {
-                    $('#popup').modal('show');
-                });
+
             }).catch(function (error) {
                 if(error.response.status === 403) {
                     window.alert("Une erreur est survenue")
